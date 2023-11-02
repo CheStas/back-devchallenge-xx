@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    container_name: excel-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      DATABASE_URI: 'mongodb://database:27017'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - database
+
+  database:
+    image: mongo:7.0
+    container_name: excel-mongodb
+    restart: no
+    volumes:
+      - './data:/data/db'
